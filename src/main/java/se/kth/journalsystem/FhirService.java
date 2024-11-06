@@ -5,6 +5,8 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import org.hl7.fhir.r4.model.Patient;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FhirService {
     private final IGenericClient client;
