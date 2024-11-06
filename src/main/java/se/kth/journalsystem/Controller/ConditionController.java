@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.kth.journalsystem.model.Condition;
-import se.kth.journalsystem.service.ConditionService;
+import se.kth.journalsystem.Service.ConditionService;
 
 import java.util.List;
 

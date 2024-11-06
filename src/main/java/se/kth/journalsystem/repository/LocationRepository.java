@@ -1,8 +1,10 @@
 package se.kth.journalsystem.repository;
 
-import se.kth.journalsystem.model.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
+import se.kth.journalsystem.model.Location;
+
+import java.util.List;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    // Anpassade frågor kan läggas till här
+    List<Location> findByOrganizationId(Long organizationId);
 }

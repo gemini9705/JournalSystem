@@ -1,8 +1,10 @@
 package se.kth.journalsystem.repository;
 
-import se.kth.journalsystem.model.Condition;
 import org.springframework.data.jpa.repository.JpaRepository;
+import se.kth.journalsystem.model.Condition;
+
+import java.util.List;
 
 public interface ConditionRepository extends JpaRepository<Condition, Long> {
-    // Anpassade frågor kan läggas till här
+    List<Condition> findByPatientId(Long patientId);
 }
