@@ -1,4 +1,4 @@
-package se.kth.journalsystem.journalsystem;
+package se.kth.journalsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

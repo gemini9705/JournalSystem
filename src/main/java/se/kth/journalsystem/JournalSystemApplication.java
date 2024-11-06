@@ -1,4 +1,4 @@
-package se.kth.journalsystem.journalsystem;
+package se.kth.journalsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
