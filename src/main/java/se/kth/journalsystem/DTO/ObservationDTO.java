@@ -1,20 +1,12 @@
-package se.kth.journalsystem.model;
+package se.kth.journalsystem.DTO;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-public class Observation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ObservationDTO {
     private Long id;
-
     private String description;
     private LocalDateTime observationDate;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    private Long patientId;
 
     // Getters och setters
     public Long getId() {
@@ -41,11 +33,11 @@ public class Observation {
         this.observationDate = observationDate;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Long getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

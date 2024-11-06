@@ -1,25 +1,14 @@
-package se.kth.journalsystem.model;
+package se.kth.journalsystem.DTO;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MessageDTO {
     private Long id;
-
     private String content;
     private LocalDateTime sentDate;
     private boolean isRead;
-
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
-
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
+    private Long senderId;
+    private Long receiverId;
 
     // Getters och setters
     public Long getId() {
@@ -54,19 +43,19 @@ public class Message {
         this.isRead = isRead;
     }
 
-    public User getSender() {
-        return sender;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public Long getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 }

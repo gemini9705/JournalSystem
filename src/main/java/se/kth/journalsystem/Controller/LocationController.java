@@ -1,9 +1,10 @@
 package se.kth.journalsystem.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.kth.journalsystem.model.Location;
+import se.kth.journalsystem.DTO.LocationDTO;
 import se.kth.journalsystem.Service.LocationService;
 
 import java.util.List;
@@ -21,34 +22,34 @@ public class LocationController {
 
     // Get all locations
     @GetMapping
-    public List<Location> getAllLocations() {
+    public List<LocationDTO> getAllLocations() {
         return locationService.getAllLocations();
     }
 
     // Get a specific location by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Location> getLocationById(@PathVariable Long id) {
-        Location location = locationService.getLocationById(id);
-        return location != null ? ResponseEntity.ok(location) : ResponseEntity.notFound().build();
+    public ResponseEntity<LocationDTO> getLocationById(@PathVariable Long id) {
+        LocationDTO locationDTO = locationService.getLocationById(id);
+        return locationDTO != null ? ResponseEntity.ok(locationDTO) : ResponseEntity.notFound().build();
     }
 
     // Get locations by organization ID
     @GetMapping("/organization/{organizationId}")
-    public List<Location> getLocationsByOrganizationId(@PathVariable Long organizationId) {
+    public List<LocationDTO> getLocationsByOrganizationId(@PathVariable Long organizationId) {
         return locationService.getLocationsByOrganizationId(organizationId);
     }
 
     // Create a new location
     @PostMapping
-    public ResponseEntity<Location> createLocation(@RequestBody Location location) {
-        Location createdLocation = locationService.createLocation(location);
-        return ResponseEntity.ok(createdLocation);
+    public ResponseEntity<LocationDTO> createLocation(@RequestBody LocationDTO locationDTO) {
+        LocationDTO createdLocation = locationService.createLocation(locationDTO);
+        return new ResponseEntity<>(createdLocation, HttpStatus.CREATED);
     }
 
     // Update an existing location
     @PutMapping("/{id}")
-    public ResponseEntity<Location> updateLocation(@PathVariable Long id, @RequestBody Location locationDetails) {
-        Location updatedLocation = locationService.updateLocation(id, locationDetails);
+    public ResponseEntity<LocationDTO> updateLocation(@PathVariable Long id, @RequestBody LocationDTO locationDetails) {
+        LocationDTO updatedLocation = locationService.updateLocation(id, locationDetails);
         return updatedLocation != null ? ResponseEntity.ok(updatedLocation) : ResponseEntity.notFound().build();
     }
 

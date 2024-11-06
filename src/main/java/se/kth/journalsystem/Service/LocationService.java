@@ -2,11 +2,13 @@ package se.kth.journalsystem.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.kth.journalsystem.DTO.LocationDTO;
 import se.kth.journalsystem.model.Location;
 import se.kth.journalsystem.repository.LocationRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationService {
@@ -18,31 +20,33 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    public List<Location> getAllLocations() {
-        return locationRepository.findAll();
+    public List<LocationDTO> getAllLocations() {
+        return locationRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public Location getLocationById(Long id) {
-        Optional<Location> location = locationRepository.findById(id);
-        return location.orElse(null);
+    public LocationDTO getLocationById(Long id) {
+        return locationRepository.findById(id).map(this::convertToDTO).orElse(null);
     }
 
-    public List<Location> getLocationsByOrganizationId(Long organizationId) {
-        return locationRepository.findByOrganizationId(organizationId);
+    public List<LocationDTO> getLocationsByOrganizationId(Long organizationId) {
+        return locationRepository.findByOrganizationId(organizationId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public Location createLocation(Location location) {
-        return locationRepository.save(location);
+    public LocationDTO createLocation(LocationDTO locationDTO) {
+        Location location = convertFromDTO(locationDTO);
+        Location savedLocation = locationRepository.save(location);
+        return convertToDTO(savedLocation);
     }
 
-    public Location updateLocation(Long id, Location locationDetails) {
+    public LocationDTO updateLocation(Long id, LocationDTO locationDetails) {
         Optional<Location> location = locationRepository.findById(id);
         if (location.isPresent()) {
             Location existingLocation = location.get();
             existingLocation.setAddress(locationDetails.getAddress());
             existingLocation.setDepartment(locationDetails.getDepartment());
-            existingLocation.setOrganization(locationDetails.getOrganization());
-            return locationRepository.save(existingLocation);
+            // Organization-ID bör inte ändras här
+            Location updatedLocation = locationRepository.save(existingLocation);
+            return convertToDTO(updatedLocation);
         }
         return null;
     }
@@ -53,5 +57,24 @@ public class LocationService {
             return true;
         }
         return false;
+    }
+
+    // Konverteringsmetoder
+    private LocationDTO convertToDTO(Location location) {
+        LocationDTO dto = new LocationDTO();
+        dto.setId(location.getId());
+        dto.setAddress(location.getAddress());
+        dto.setDepartment(location.getDepartment());
+        dto.setOrganizationId(location.getOrganization() != null ? location.getOrganization().getId() : null);
+        return dto;
+    }
+
+    private Location convertFromDTO(LocationDTO dto) {
+        Location location = new Location();
+        location.setAddress(dto.getAddress());
+        location.setDepartment(dto.getDepartment());
+        // Organization måste sättas med ett externt service- eller repository-anrop om organisationen är en entitet
+        // location.setOrganization(organizationService.findById(dto.getOrganizationId()).orElseThrow(...));
+        return location;
     }
 }

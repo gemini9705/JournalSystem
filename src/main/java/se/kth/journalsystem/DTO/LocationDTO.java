@@ -1,20 +1,10 @@
-package se.kth.journalsystem.model;
+package se.kth.journalsystem.DTO;
 
-import jakarta.persistence.*;
-import java.util.List;
-
-@Entity
-public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class LocationDTO {
     private Long id;
-
     private String address;
     private String department;
-
-    @ManyToOne
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
+    private Long organizationId;
 
     // Getters och setters
     public Long getId() {
@@ -41,11 +31,11 @@ public class Location {
         this.department = department;
     }
 
-    public Organization getOrganization() {
-        return organization;
+    public Long getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 }

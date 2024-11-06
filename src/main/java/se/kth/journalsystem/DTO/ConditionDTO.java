@@ -1,22 +1,14 @@
-package se.kth.journalsystem.model;
+package se.kth.journalsystem.DTO;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-public class Condition {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ConditionDTO {
     private Long id;
-
     private String diagnosis;
     private LocalDate diagnosisDate;
+    private Long patientId; // Detta refererar till patientens ID
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
-
-    // Getter och setter för id
+    // Getters och setters
     public Long getId() {
         return id;
     }
@@ -25,7 +17,6 @@ public class Condition {
         this.id = id;
     }
 
-    // Getter och setter för diagnosis
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -34,7 +25,6 @@ public class Condition {
         this.diagnosis = diagnosis;
     }
 
-    // Getter och setter för diagnosisDate
     public LocalDate getDiagnosisDate() {
         return diagnosisDate;
     }
@@ -43,12 +33,11 @@ public class Condition {
         this.diagnosisDate = diagnosisDate;
     }
 
-    // Getter och setter för patient
-    public Patient getPatient() {
-        return patient;
+    public Long getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

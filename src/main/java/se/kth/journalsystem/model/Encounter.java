@@ -20,4 +20,35 @@ public class Encounter {
     private Practitioner practitioner;
 
     // Getters och setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getEncounterDate() {
+        return encounterDate;
+    }
+
+    public void setEncounterDate(LocalDateTime encounterDate) {
+        this.encounterDate = encounterDate;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Practitioner getPractitioner() {
+        return practitioner;
+    }
+
+    public void setPractitioner(Practitioner practitioner) {
+        this.practitioner = practitioner;
+    }
 }

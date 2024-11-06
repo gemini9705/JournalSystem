@@ -1,19 +1,12 @@
-package se.kth.journalsystem.model;
+package se.kth.journalsystem.DTO;
 
-import jakarta.persistence.*;
 import java.util.List;
 
-@Entity
-public class Practitioner {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PractitionerDTO {
     private Long id;
-
     private String name;
-    private String role; // Exempel: "Läkare", "Sjuksköterska"
-
-    @OneToMany(mappedBy = "practitioner")
-    private List<Encounter> encounters;
+    private String role;
+    private List<Long> encounterIds;
 
     // Getters och setters
     public Long getId() {
@@ -40,11 +33,11 @@ public class Practitioner {
         this.role = role;
     }
 
-    public List<Encounter> getEncounters() {
-        return encounters;
+    public List<Long> getEncounterIds() {
+        return encounterIds;
     }
 
-    public void setEncounters(List<Encounter> encounters) {
-        this.encounters = encounters;
+    public void setEncounterIds(List<Long> encounterIds) {
+        this.encounterIds = encounterIds;
     }
 }
